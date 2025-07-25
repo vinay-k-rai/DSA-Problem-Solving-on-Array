@@ -1,0 +1,19 @@
+class Solution {
+    pair<bool,int> isBall(TreeNode* root){
+        if(root==NULL) return {true,0} ;
+        pair<bool,int> left = isBall(root->left) ;
+        pair<bool,int> right= isBall(root->right) ;
+        if(left.first==true && right.first==true && 
+        abs(left.second-right.second)<=1) {
+        return {true,max(left.second,right.second)+1} ;}
+        return  {false,max(left.second,right.second)+1} ;
+
+    }
+public:
+    bool isBalanced(TreeNode* root) {
+        pair<bool,int> p = isBall(root);
+        if(p.first==true)
+             return true ;
+        return false ;
+    }
+};
