@@ -1,0 +1,33 @@
+class Solution {
+public:
+     
+
+         bool valid(string s,int row[])
+        {
+            
+             int currentrow=-1;
+            for(char c:s)
+            {
+                c=tolower(c);
+                if(currentrow==-1) currentrow=row[c-'a'];
+                else if(row[c-'a']!=currentrow) return false;
+            } 
+            return true;
+        }
+
+    vector<string> findWords(vector<string>& words)
+    { 
+       int row[26]={0};
+            // for(char c : string("qwertyuiop")) row[c-'a']=1;
+            for(char c : string("asdfghjkl")) row[c-'a']=1;
+            for(char c: string("zxcvbnm")) row[c-'a']=2;
+
+        vector<string> ans;
+        for(auto &it:words)
+        {
+            if(valid(it,row)) ans.push_back(it);
+
+        }
+        return ans;
+    }
+};
