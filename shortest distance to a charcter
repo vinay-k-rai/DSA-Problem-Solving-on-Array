@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> shortestToChar(string s, char c) {
+        int len = s.size();
+        int last = -len;
+        vector<int> results(len, 0);        
+
+        for(auto i = 0; i < len; ++i) {
+            if(s[i] != c)
+                continue;
+
+            backFill(results, last, i);
+            // dump(results);
+            last = i;
+        }
+
+        backFill(results, last, len * 2); // in case word does not end in c
+        // dump(results);
+        return results;
+    }
+
+private:
+    void backFill(vector<int>& arr, int first, int last) {
+        int size = min((int)arr.size(), last);
+        for(auto i = max(first + 1, 0); i < size; ++i) {
+            int l = i - first;
+            int r = last - i;
+
+            arr[i] = min(l, r);
+        }
+    }
+
+    void dump(const vector<int> &v) {
+        cout << "{ ";
+        for(auto i : v)
+            cout << i << ", ";
+        
+        cout << "}" << endl;
+    }
+};
