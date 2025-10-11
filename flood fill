@@ -1,0 +1,23 @@
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int check = image[sr][sc];
+        if (check == color) return image;
+        dfs(image, sr, sc, check, color);
+        return image;
+    }
+
+private:
+    void dfs(vector<vector<int>>& arr, int a, int b, int check, int color) {
+        if (a < 0 || a >= arr.size() || b < 0 || b >= arr[0].size()) return;
+        if (arr[a][b] != check) return;
+        arr[a][b] = color;
+        dfs(arr, a - 1, b, check, color);
+        dfs(arr, a + 1, b, check, color);
+        dfs(arr, a, b - 1, check, color);
+        dfs(arr, a, b + 1, check, color);
+    }
+};
